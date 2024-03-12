@@ -4,7 +4,6 @@ import { Link, Outlet } from 'react-router-dom'
 const LayoutPage = () => {
   return (
     <>
-    
       <nav>
         <ul>
           <li>
