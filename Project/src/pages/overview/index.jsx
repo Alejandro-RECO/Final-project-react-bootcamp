@@ -1,10 +1,14 @@
+import ContactForm from '../../components/form'
+import ContactsList from '../../components/layoutContent'
+import { useContact } from '../../context/ContactContext'
 import './index.scss'
-import React from 'react'
 
 const OverviewPage = () => {
   return (
     <div>
-      Overview page
+      Overview
+      <ContactForm/>
+      <ContactsList/>
     </div>
   )
 }
