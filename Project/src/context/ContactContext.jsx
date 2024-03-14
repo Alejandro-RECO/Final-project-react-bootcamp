@@ -22,24 +22,6 @@ export const ContactContextProvider = ({ children }) => {
     setOpenModal(!openModal)
   }
 
-  const getContacts = async () => {
-    setLoading(true);
-    const user = await supabase.auth.getUser();
-    const userId = user.data.user.id;
-    const { error, data } = await supabase
-      .from("contacts")
-      .select()
-      .eq("userId", userId)
-      // .eq("favorite", favorite);
-
-    if (error) throw new Error("ERROR: ", error);
-
-    setContacts(data);
-
-    setLoading(false);
-    console.log("Result: ", data);
-  };
-
   const createContact = async (contactData) =>{
     setLoading(true)
     setAdding(true)
@@ -91,7 +73,7 @@ export const ContactContextProvider = ({ children }) => {
 
   return (
     <ContactContext.Provider
-      value={{ contacts, adding, loading, userError, openModal, getContacts, createContact, handleModal }}
+      value={{ contacts, adding, loading, userError, openModal, createContact, handleModal }}
     >
       {children}
     </ContactContext.Provider>

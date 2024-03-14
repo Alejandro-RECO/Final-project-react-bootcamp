@@ -38,7 +38,7 @@ const ContactForm = () => {
     <>
     <Button 
       onClick={handleModal}
-      isActive={true}  
+      active={true}  
     >
       <RiAddLine/> New
     </Button>
