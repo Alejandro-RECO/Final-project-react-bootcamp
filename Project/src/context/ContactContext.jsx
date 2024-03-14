@@ -15,6 +15,12 @@ export const ContactContextProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [adding, setAdding] = useState(false);
+  const [userError, setUserError] = useState(false);
+  const [openModal, setOpenModal] = useState(false)
+
+  const handleModal = () =>{
+    setOpenModal(!openModal)
+  }
 
   const getContacts = async () => {
     setLoading(true);
@@ -23,20 +29,69 @@ export const ContactContextProvider = ({ children }) => {
     const { error, data } = await supabase
       .from("contacts")
       .select()
-      .eq("userId", userId);
-    // .eq("done", done);
+      .eq("userId", userId)
+      // .eq("favorite", favorite);
 
     if (error) throw new Error("ERROR: ", error);
 
     setContacts(data);
 
     setLoading(false);
-    console.log("Result: ", result);
+    console.log("Result: ", data);
   };
+
+  const createContact = async (contactData) =>{
+    setLoading(true)
+    setAdding(true)
+    try{
+      const user = await supabase.auth.getUser()
+      const userId = user.data.user.id
+
+      if(!userId){
+        setUserError(true)
+        console.error('Unauthorized', {status: 401})
+        throw new Error("Unauthorized")
+      }
+      if(!contactData.email){
+        setUserError(true)
+        console.error('Email is required', {status: 400})
+      }
+      if(!contactData.name){
+        setUserError(true)
+        console.error('Name is required', {status: 400})
+      }
+      if(!contactData.url_image){
+        setUserError(true)
+        console.error('Image is required', {status: 400})
+      }
+
+      const {error, data} = await supabase
+      .from('contacts')
+      .insert({
+        userId: userId,
+        email: contactData.email,
+        name: contactData.name,
+        favorite: contactData.favorite,
+        url_image: contactData.url_image
+      })
+      .select()
+
+      if (error) throw new Error('new error',error)
+
+      setContacts([...contacts, ...data])
+
+      console.log(data);
+    }catch (error){
+      console.error(error)
+    }finally{
+      setLoading(false)
+      setAdding(false)
+    }
+  }
 
   return (
     <ContactContext.Provider
-      value={{ contacts, loading, loading, getContacts }}
+      value={{ contacts, adding, loading, userError, openModal, getContacts, createContact, handleModal }}
     >
       {children}
     </ContactContext.Provider>

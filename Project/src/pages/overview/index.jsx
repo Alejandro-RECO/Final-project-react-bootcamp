@@ -7,7 +7,7 @@ const OverviewPage = () => {
   return (
     <div>
       Overview
-      <ContactForm/>
+      {/* <ContactForm/> */}
       <ContactsList/>
     </div>
   )

@@ -1,41 +1,21 @@
 import React, { useState } from 'react'
-import { supabase } from '../../services/client'
+// import { supabase } from '../../services/client'
+import { useContact } from '../../context/ContactContext'
+import Modal from '../modal'
+import Button from '../buton'
+import styled from 'styled-components'
+import { RiAddLine } from "react-icons/ri";
+
 
 const ContactForm = () => {
-  const[loading, setLoading] = useState(false)
-  const[contact, setContact] = useState([])
   const[contactData, setContactData] = useState({
     email: '',
     name: '',
     favorite: false,
     url_image: ''
-  })
-  
-  const createContact = async () =>{
-    setLoading(true)
-    try{
-      const user = await supabase.auth.getUser()
-      const userId = user.data.user.id
-      const {error, data} = await supabase
-      .from('contacts')
-      .insert({
-        userId: userId,
-        email: contactData.email,
-        name: contactData.name,
-        favorite: contactData.favorite,
-        url_image: contactData.url_image
-      })
-      .select()
+  })  
 
-      if (error) throw new Error('new error',error)
-      //setContact(data)
-      console.log(data);
-    }catch (error){
-      console.error(error)
-    }finally{
-      setLoading(false)
-    }
-  }
+  const {createContact, adding, loading, userError, openModal, handleModal } = useContact()
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -49,50 +29,105 @@ const ContactForm = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault()
-    createContact()
-
+    createContact(contactData)
+    handleModal()
   }
   
 
   return (
-    <form
-      onSubmit={handleSubmit}
+    <>
+    <Button 
+      onClick={handleModal}
+      isActive={true}  
     >
-     <input
-        name="email"
-        type="email"
-        placeholder="email@example.com..."
-        value={contactData.email}
-        onChange={handleInputChange}
-      />
-      <input
-        name="name"
-        type="text"
-        placeholder="Name"
-        value={contactData.name}
-        onChange={handleInputChange}
-      />
-      <input
-        name="url_image"
-        type="text"
-        placeholder="Image URL"
-        value={contactData.url_image}
-        onChange={handleInputChange}
-      />
-      <label>
-        <input
-          name="favorite"
-          type="checkbox"
-          checked={contactData.favorite}
+      <RiAddLine/> New
+    </Button>
+    <Modal
+      open={openModal}
+      isOpen={handleModal}
+    >
+      <Form
+        onSubmit={handleSubmit}
+      >
+      <Input
+          id='email'
+          name="email"
+          type="email"
+          placeholder="email@example.com..."
+          value={contactData.email}
           onChange={handleInputChange}
+          required
         />
-        Favorite
-      </label>
-      <button 
-        disabled={loading}
-        type="submit">{loading ? 'Adding...' : 'Add'}</button>
-    </form>
+        <Input
+          name="name"
+          type="text"
+          placeholder="Name"
+          value={contactData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <Input
+          name="url_image"
+          type="text"
+          placeholder="Image URL"
+          value={contactData.url_image}
+          onChange={handleInputChange}
+          required
+        />
+        <CheckboxContainer >
+          Enable like favorite
+          <StyledCheckbox
+            className='checkboxInput'
+            name="favorite"
+            type="checkbox"
+            checked={contactData.favorite}
+            onChange={handleInputChange}
+          />
+        </CheckboxContainer>
+        <Button 
+          disabled={loading}
+          type="submit">{loading ? 'Adding...' : 'Add'}
+        </Button>
+      </Form>
+    </Modal>
+    </>
   )
 }
 
 export default ContactForm
+
+
+const Form = styled.form`
+  
+  width: 100%;
+  padding: 20px 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* align-items: ; */
+  /* justify-content: ; */
+  /* border: 1px solid red; */
+`
+
+const Input = styled.input`
+  padding: 22px 10px;
+  background-color: #cfdf66;
+  border-bottom: 1px solid white;
+`
+
+const CheckboxContainer = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+const StyledCheckbox = styled.input`
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid ${props => (props.checked ? 'green' : 'gray')};
+  border-radius: 4px;
+  background-color: ${props => (props.checked ? 'green' : 'transparent')};
+  cursor: pointer;
+`;
