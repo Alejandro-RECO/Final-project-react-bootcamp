@@ -5,7 +5,7 @@ import { RiCloseLine } from "react-icons/ri";
 import { primary } from '../../UI/colors';
 
 
-const Modal = ({children, open, isOpen}) => {
+const Modal = ({children, open, isOpen, title}) => {
 
 
   return (
@@ -15,9 +15,10 @@ const Modal = ({children, open, isOpen}) => {
       <Overlay>
         <ContainerModal>
             <HeaderModal>
-              <h3>ADD CONTACT</h3>
+              <h3>{title}</h3>
               <Button
                 onClick={isOpen}
+                
               >
                 <RiCloseLine/>
               </Button>

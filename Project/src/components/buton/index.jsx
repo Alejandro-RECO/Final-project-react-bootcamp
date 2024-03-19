@@ -1,35 +1,91 @@
-import React from 'react'
-import styled from 'styled-components'
-import { primary } from '../../UI/colors'
+import React from "react";
+import styled from "styled-components";
 
-const Button = ({active, onClick, children}) => {
+const Button = ({
+  children,
+  noBackground = false,
+  noBorder = true,
+  noShadow = false,
+  background = "#ffff",
+  BgBorder = "#000000",
+  BgText = "#000000",
+  noHover = false,
+  BgHover = '#eeeeee',
+
+  onClick
+}) => {
   return (
-    <ButtonContent onClick={onClick} active={active}>
+    <ButtonStyled
+      onClick={onClick}
+      noBackground={noBackground}
+      background={background}
+      noBorder={noBorder}
+      BgBorder={BgBorder}
+      noShadow={noShadow}
+      BgText={BgText}
+      noHover={noHover}
+      BgHover={BgHover}
+    >
       {children}
-    </ButtonContent>
-  )
+    </ButtonStyled>
+  );
+};
+
+export default Button;
+
+const handleBackground = (noBackground, background) => {
+  if (!noBackground) {
+    return background;
+  } else {
+    return "transparent";
+  }
+};
+
+const handleBorder = (noBorder, BgBorder) => {
+  if (!noBorder) {
+    return ` 1px solid ${BgBorder}`;
+  } else {
+    return "none";
+  }
+};
+
+const handleShadow = (noShadow) => {
+  if (!noShadow) {
+    return '0px 5px 9px -4px rgba(0,0,0,0.22)';
+  } else {
+    return 'none';
+  }
+};
+
+const handleHover = (noHover, BgHover) => {
+  if(!noHover) {
+    return ` background-color: ${BgHover} ;`
+  }else{
+    return 'none'
+  }
 }
 
-export default Button
+const ButtonStyled = styled.button`
+  background-color: ${(props) =>
+    handleBackground(props.noBackground, props.background)};
+  border: ${(props) => handleBorder(props.noBorder, props.BgBorder)};
+  box-shadow: ${(props) => handleShadow(props.noShadow)};
+  color: ${(props) => props.BgText};
 
-
-const ButtonContent = styled.button`
-  padding: .2rem .7rem;
-  background: ${(props) => (props.active ? primary : '#ededed')};
-  transition: background-color 0.2s ease ;
-  border-radius: .2rem;
+  border-radius: .3rem;
+  font-size: 1rem;
   text-align: center;
+  padding:.4rem .8rem;
+  transition: .2s all;
+  cursor: pointer;
+
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
-  display: flex;
   align-items: center;
-  gap: 10px;
-  
+  gap: 0.5rem;
+
+
   &:hover{
-    background-color: ${(props) => (props.active ? '#c1d72fd9' : 'white')};
-    cursor: pointer;
-    box-shadow:-5px 12px 19px -13px rgba(0,0,0,0.75);
+    ${(props) => handleHover(props.noHover, props.BgHover)}
   }
-`
+`;

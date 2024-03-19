@@ -53,6 +53,7 @@ export const ContactContextProvider = ({ children }) => {
         userId: userId,
         email: contactData.email,
         name: contactData.name,
+        last_name: contactData.last_name,
         favorite: contactData.favorite,
         url_image: contactData.url_image
       })

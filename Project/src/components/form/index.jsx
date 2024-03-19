@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
-// import { supabase } from '../../services/client'
 import { useContact } from '../../context/ContactContext'
+
 import Modal from '../modal'
 import Button from '../buton'
 import styled from 'styled-components'
 import { RiAddLine } from "react-icons/ri";
-
+import { primary } from '../../UI/colors'
 
 const ContactForm = () => {
   const[contactData, setContactData] = useState({
     email: '',
     name: '',
+    last_name: '',
     favorite: false,
     url_image: ''
   })  
 
-  const {createContact, adding, loading, userError, openModal, handleModal } = useContact()
+  const {createContact, loading, openModal, handleModal } = useContact()
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -38,13 +39,18 @@ const ContactForm = () => {
     <>
     <Button 
       onClick={handleModal}
-      active={true}  
+      noBackground={false}
+      background={primary}
+      noBorder={true}
+      BgText='#000'
+      BgHover='#d8ec58'
     >
       <RiAddLine/> New
     </Button>
     <Modal
       open={openModal}
       isOpen={handleModal}
+      title={'ADD CONTACT'}
     >
       <Form
         onSubmit={handleSubmit}
@@ -63,6 +69,14 @@ const ContactForm = () => {
           type="text"
           placeholder="Name"
           value={contactData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <Input
+          name="last_name"
+          type="text"
+          placeholder="Last name"
+          value={contactData.last_name}
           onChange={handleInputChange}
           required
         />

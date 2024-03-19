@@ -1,16 +1,21 @@
-import ContactForm from '../../components/form'
+import styled from 'styled-components'
 import ContactsList from '../../components/layoutContent'
-import { useContact } from '../../context/ContactContext'
 import './index.scss'
 
 const OverviewPage = () => {
   return (
-    <div>
-      Overview
+    <ContainerCards>
       {/* <ContactForm/> */}
       <ContactsList/>
-    </div>
+    </ContainerCards>
   )
 }
 
 export default OverviewPage
+
+const ContainerCards = styled.section`
+  display: 'flex';
+  align-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+`
