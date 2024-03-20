@@ -2,7 +2,7 @@
 import {supabase, user} from '../services/client.js'
 
 
-export const fetchContacts = async ()=>{
+export const fetchContacts = async (favorite = false)=>{
   if(!user){
     throw new Error('Unauthorized')
   }
@@ -13,7 +13,8 @@ export const fetchContacts = async ()=>{
     .from('contacts')
     .select()
     .eq('userId', userId)
-    console.log(data);
+    .eq('favorite', favorite)
+    // console.log(data);
 
     if (error) throw new Error("ERROR: ", error);
 

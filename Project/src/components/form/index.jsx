@@ -39,11 +39,11 @@ const ContactForm = () => {
     <>
     <Button 
       onClick={handleModal}
-      noBackground={false}
+      nobackground={false}
       background={primary}
-      noBorder={true}
-      BgText='#000'
-      BgHover='#d8ec58'
+      noborder={true}
+      bgtext='#000'
+      bghover='#d8ec58'
     >
       <RiAddLine/> New
     </Button>

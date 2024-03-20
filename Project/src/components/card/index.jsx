@@ -6,7 +6,7 @@ import { primary, secondary900 } from '../../UI/colors'
 const ContactCard = ({contact, children}) => {
   return (
     <Card>
-      <Img contact={contact}  src={`${contact.url_image}`} srcSet='./img/user-skeleton.png' alt={contact.name} />
+      <Img favorite={contact.favorite}  src={`${contact.url_image}`} alt={contact.name} />
       <h2>{contact.name} {contact.last_name}</h2>
       <p>{contact.email}</p>
       {children}
@@ -16,6 +16,14 @@ const ContactCard = ({contact, children}) => {
 
 export default ContactCard
 
+
+const handleFavorite = (favorite) =>{
+  if(favorite){
+    return `5px solid ${primary}`
+  }else{
+    return 'none'
+  }
+}
 
 const Card = styled.div`
   max-width: 320px;
@@ -44,26 +52,11 @@ const Card = styled.div`
     border-bottom: 2px solid #d1d1d1;
     text-align: center;
   }
-
-  /* button{
-    border: 1px solid #c90000;
-    border-radius: 0.3rem;
-    padding: 0.3rem .6rem;
-    color: #c90000;
-    text-transform: uppercase;
-    font-size: .9rem;
-    letter-spacing: 1px;
-   
-
-    span :first-child{
-      font-size: 1.5rem;
-    }
-  } */
 `
 const Img = styled.img`
   height: 140px;
   width: 140px;
-  border: ${(props) => (props.contact.favorite ? `5px solid ${primary}` : '')};
+  border: ${(props) => handleFavorite(props.favorite)};
   border-radius: 50%;
   object-fit: cover;
   display: flex;

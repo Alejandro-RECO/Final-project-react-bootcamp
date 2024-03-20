@@ -3,28 +3,28 @@ import styled from "styled-components";
 
 const Button = ({
   children,
-  noBackground = false,
-  noBorder = true,
-  noShadow = false,
+  nobackground = false,
+  noborder = true,
+  noshadow = false,
   background = "#ffff",
-  BgBorder = "#000000",
-  BgText = "#000000",
-  noHover = false,
-  BgHover = '#eeeeee',
+  bgborder = "#000000",
+  bgtext = "#000000",
+  nohover = false,
+  bghover = '#eeeeee',
 
   onClick
 }) => {
   return (
     <ButtonStyled
       onClick={onClick}
-      noBackground={noBackground}
+      nobackground={nobackground}
       background={background}
-      noBorder={noBorder}
-      BgBorder={BgBorder}
-      noShadow={noShadow}
-      BgText={BgText}
-      noHover={noHover}
-      BgHover={BgHover}
+      noborder={noborder}
+      bgborder={bgborder}
+      noshadow={noshadow}
+      bgtext={bgtext}
+      nohover={nohover}
+      bghover={bghover}
     >
       {children}
     </ButtonStyled>
@@ -33,33 +33,33 @@ const Button = ({
 
 export default Button;
 
-const handleBackground = (noBackground, background) => {
-  if (!noBackground) {
+const handleBackground = (nobackground, background) => {
+  if (!nobackground) {
     return background;
   } else {
     return "transparent";
   }
 };
 
-const handleBorder = (noBorder, BgBorder) => {
-  if (!noBorder) {
-    return ` 1px solid ${BgBorder}`;
+const handleBorder = (noborder, bgborder) => {
+  if (!noborder) {
+    return ` 1px solid ${bgborder}`;
   } else {
     return "none";
   }
 };
 
-const handleShadow = (noShadow) => {
-  if (!noShadow) {
+const handleShadow = (noshadow) => {
+  if (!noshadow) {
     return '0px 5px 9px -4px rgba(0,0,0,0.22)';
   } else {
     return 'none';
   }
 };
 
-const handleHover = (noHover, BgHover) => {
-  if(!noHover) {
-    return ` background-color: ${BgHover} ;`
+const handleHover = (nohover, bghover) => {
+  if(!nohover) {
+    return ` background-color: ${bghover} ;`
   }else{
     return 'none'
   }
@@ -67,10 +67,10 @@ const handleHover = (noHover, BgHover) => {
 
 const ButtonStyled = styled.button`
   background-color: ${(props) =>
-    handleBackground(props.noBackground, props.background)};
-  border: ${(props) => handleBorder(props.noBorder, props.BgBorder)};
-  box-shadow: ${(props) => handleShadow(props.noShadow)};
-  color: ${(props) => props.BgText};
+    handleBackground(props.nobackground, props.background)};
+  border: ${(props) => handleBorder(props.noborder, props.bgborder)};
+  box-shadow: ${(props) => handleShadow(props.noshadow)};
+  color: ${(props) => props.bgtext};
 
   border-radius: .3rem;
   font-size: 1rem;
@@ -86,6 +86,6 @@ const ButtonStyled = styled.button`
 
 
   &:hover{
-    ${(props) => handleHover(props.noHover, props.BgHover)}
+    ${(props) => handleHover(props.nohover, props.bghover)}
   }
 `;

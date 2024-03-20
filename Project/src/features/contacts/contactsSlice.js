@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState ={
   contacts: [],
+  contactsFavorites:[],
   loadign: false,
   error: null
 }
@@ -18,6 +19,10 @@ const contactsSlice = createSlice({
       state.loadign = false;
       state.contacts = action.payload
     },
+    fetchContactsFavorites(state, action){
+      state.loadign = false;
+      state.contactsFavorites = action.payload
+    },
     fetchContactsFailure(state, action){
       state.loadign = false;
       state.error = action.payload
@@ -28,7 +33,8 @@ const contactsSlice = createSlice({
 export const {
   fetchContactsStart,
   fetchContactsSuccess,
-  fetchContactsFailure
+  fetchContactsFailure,
+  fetchContactsFavorites
 } = contactsSlice.actions;
 
 export default contactsSlice.reducer;
