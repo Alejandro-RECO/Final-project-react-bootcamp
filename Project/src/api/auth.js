@@ -1,20 +1,36 @@
-import { useState } from "react";
-import { supabase} from "../services/client"
+import { supabase} from "../services/client.js"
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure
+} from '../features/auth/authSlice.js'
 
-export const userLogin = async (email) => {
+import {
+  getUserStart,
+  getUserSuccess,
+  getUserFailure
+} from '../features/auth/userSlice.js'
+import { useEffect } from "react"
+
+export const userLogin = async (email, dispatch) => {
+
+  // const dispatch = useDispatch()
 
   try{
+    dispatch(loginStart())
     const {error, data} = await supabase.auth.signInWithOtp({
       email
     })
+    dispatch(loginFailure(error))
+    dispatch(loginSuccess(data))
 
     if(error){
       throw new Error(error.message);
     }
-    console.log(data);
-    
+
+    console.log('Error login: ', error);
   }catch(err){
-    throw new Error('Failed to login');
+    throw new Error('Failed to login', err);
   }
 }
 
@@ -26,11 +42,18 @@ export const logout = async () => {
   }
 };
 
-export const getSesion = async()=>{
-  try{
-    const sesion = await supabase.auth.getSession()
-    return sesion.data.session.user.id
-  }catch(e){
-    console.log(e);
-  }
+export const getSesion = async(dispatch)=>{
+    const getUserData = async()=>{
+      try{
+        dispatch(getUserStart())
+        const key = Object.keys(localStorage)
+        const userData = JSON.parse(window.localStorage.getItem(key))
+        dispatch(getUserSuccess(userData.user))
+      }catch(e){
+        console.log("EERRO_GET_USER_DATA", e);
+        dispatch(getUserFailure(e))
+      }
+    }
+    
+    getUserData()
 }

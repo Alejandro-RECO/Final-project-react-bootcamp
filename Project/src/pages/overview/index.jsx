@@ -21,7 +21,10 @@ const OverviewPage = () => {
 
   const dispatch = useDispatch();
   const { contacts, contactsFavorites, loading, error } = useSelector((state) => state.contacts);
+  const { user } = useSelector((state) => state.user )
   const favorites = contactsFavorites.slice(-4)
+
+  console.log(user.id);
 
 
   useEffect(() => {
@@ -37,7 +40,9 @@ const OverviewPage = () => {
       }
     };
     fetchContactsData();
-  }, [contacts]);
+  }, []);
+
+
 
   function renderContacts() {
     if (loading) {
@@ -87,7 +92,6 @@ const OverviewPage = () => {
   return (
     <div>
       {renderContacts()}
-      <button onClick={() => console.log(favorites)}>Click me</button>
     </div>
   );
 }

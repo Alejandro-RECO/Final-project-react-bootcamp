@@ -1,5 +1,9 @@
 // import axios from 'axios'
+// import { createContactStart } from '../features/contacts/createContactSlice.js';
 import {supabase, user} from '../services/client.js'
+// import { useDispatch, useSelector } from "react-redux";
+
+// const dispatch = useDispatch()
 
 
 export const fetchContacts = async (favorite = false)=>{
@@ -23,3 +27,11 @@ export const fetchContacts = async (favorite = false)=>{
     throw new Error('Failed to fetch contacts', e);
   }
 }
+
+// export const createContact = async (contactData) =>{
+//     try{
+//       dispatch(createContactStart())
+//       const {data, error} = await supabase.
+//     }
+
+// }

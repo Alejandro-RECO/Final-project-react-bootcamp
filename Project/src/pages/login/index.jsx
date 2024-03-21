@@ -1,37 +1,21 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import{
-  loginStart,
-  loginSuccess,
-  loginFailure,
-  setUser,
-} from '../../features/auth/authSlice'
-import { getSesion, userLogin } from "../../api/auth";
-// import { supabase } from "../../services/client";
+import {userLogin} from '../../api/auth'
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
-  const dispatch = useDispatch()
-  const { error } = useSelector((state) => state.auth)
+  // const { error } = useSelector((state) => state.auth)
   const [email, setEmail] = useState('');
 
-  console.log('erro', error);
+  // console.log('erro', error);
+  const dispatch = useDispatch()
 
   const handleSubmit  = async (e) =>{
     e.preventDefault()
-
-    // console.log('User email', email);
      try{
-      dispatch(loginStart())
-      const response  = await userLogin(email)
-      const user = await getSesion()
-      dispatch(setUser(user))
-
-      console.log('Respuesta', response);
+      await userLogin(email, dispatch)
      }catch(err){
-      dispatch(loginFailure(err))
       console.error('ERROR LOGIN: ',err)
      }
-    //  setEmail('')
   }
 
   return (
