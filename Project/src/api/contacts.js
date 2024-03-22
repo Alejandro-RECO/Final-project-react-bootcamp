@@ -3,13 +3,11 @@ import {
   fetchContactsFavorites,
   fetchContactsStart,
   fetchContactsSuccess,
+  getCreateContact,
+  updateContact
 } from "../features/contacts/contactsSlice.js";
-import {
-  createContactStart,
-  createContactFailure,
-  createContactSuccess,
-} from "../features/contacts/createContactSlice.js";
 import { supabase } from "../services/client.js";
+import { separateFavorites } from "../util/util.js";
 
 export const fetchContacts = async (dispatch, user) => {
   try {
@@ -17,63 +15,63 @@ export const fetchContacts = async (dispatch, user) => {
     const { error, data } = await supabase
       .from("contacts")
       .select()
-      .eq("userId", user)
-   
-    if(error){
-      console.error(error)
+      .eq("userId", user);
+    if (error) {
+      console.error(error);
       dispatch(fetchContactsFailure(error));
     }
 
-    const { favorites, nonFavorites } = separateFavorites(data)
+    const { favorites, nonFavorites } = separateFavorites(data);
 
-    dispatch(fetchContactsSuccess(nonFavorites))
-    dispatch(fetchContactsFavorites(favorites))
-    
+    dispatch(fetchContactsSuccess(nonFavorites));
+    dispatch(fetchContactsFavorites(favorites));
+
     console.log("NO FAVORITES: API", nonFavorites);
     console.log("FAVORITES: API", favorites);
-
-
-    // dispatch(fetchContactsSuccess(data));
-
-    // console.log(data);
-
   } catch (e) {
     throw new Error("Failed to fetch contacts", e);
   }
 };
 
-const separateFavorites = (data)=>{
-  const favorites = []
-  const nonFavorites = []
-  
-  data.forEach ((item) =>{
-    if(item.favorite){
-      favorites.push(item)
-    }else{
-      nonFavorites.push(item)
-    }
-  })
-
-  return{
-    favorites,
-    nonFavorites
-  }
-}
-
-export const createContact = async (contactData, dispatch, user) => {
+export const createContact = async (contactData, dispatch, userId) => {
   try {
-    dispatch(createContactStart());
-    const { data, error } = await supabase.from("contacts").insert({
-      userId: user,
-      email: contactData.email,
-      name: contactData.name,
-      last_name: contactData.last_name,
-      favorite: contactData.favorite,
-      url_image: contactData.url_image,
-    });
-    dispatch(createContactFailure(error));
-    dispatch(createContactSuccess(data));
+    dispatch(fetchContactsStart());
+    const { data, error } = await supabase
+      .from("contacts")
+      .insert({
+        userId,
+        email: contactData.email,
+        name: contactData.name,
+        last_name: contactData.last_name,
+        favorite: contactData.favorite,
+        url_image: contactData.url_image,
+      })
+      .select();
+    console.log(data);
+    dispatch(getCreateContact(data));
+    dispatch(fetchContactsFailure(error));
   } catch (e) {
     console.log(e);
+    dispatch(fetchContactsFailure(e));
   }
+};
+
+export const updateContacts = async (id, updateField, user, dispatch) => {
+  try{
+    const {data, error} = await supabase
+      .from('contacts')
+      .update(updateField)
+      .eq("userId", user)
+      .eq("id", id)
+      .select()
+  
+    if(error) {
+      throw new Error(error);
+    }
+    dispatch(updateContact(data))
+    dispatch(fetchContactsFailure(error))
+    console.log(data);
+  }catch(err) {
+    dispatch(fetchContactsFailure(err))
+  } 
 };

@@ -55,7 +55,7 @@ const LayoutPage = () => {
           <li>
             <NavLinkS to="favorites">Favorites</NavLinkS>
           </li>
-          <ContactForm />
+          <ContactForm title={'NEW'}/>
           <Button 
             onClick={handleModal}
             $noBackground={true}

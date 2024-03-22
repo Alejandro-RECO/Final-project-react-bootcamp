@@ -8,7 +8,6 @@ import { ContactContextProvider } from './context/ContactContext.jsx'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import contactsReducer from './features/contacts/contactsSlice.js'
-import createContactReducer from './features/contacts/createContactSlice.js'
 import authReducer from './features/auth/authSlice.js'
 import userReducer from './features/auth/userSlice.js'
 
@@ -18,7 +17,6 @@ const store = configureStore({
     contacts: contactsReducer,
     auth: authReducer,
     user: userReducer,
-    createContact: createContactReducer
   }
 })
 

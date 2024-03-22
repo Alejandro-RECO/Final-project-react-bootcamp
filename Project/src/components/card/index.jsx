@@ -4,9 +4,12 @@ import styled from 'styled-components'
 import { primary, secondary900 } from '../../UI/colors'
 
 const ContactCard = ({$contact, children}) => {
+  function addDefaultSrc(ev){
+    ev.target.src = './img/user-skeleton.png'
+  }
   return (
     <Card>
-      <Img $favorite={$contact.favorite}  src={`${$contact.url_image}`} alt={$contact.name} />
+      <Img $favorite={$contact.favorite}  src={`${$contact.url_image}`} alt={$contact.name} onError={addDefaultSrc}/>
       <h2>{$contact.name} {$contact.last_name}</h2>
       <p>{$contact.email}</p>
       {children}

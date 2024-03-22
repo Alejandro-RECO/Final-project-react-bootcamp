@@ -41,18 +41,18 @@ export const logout = async () => {
   }
 };
 
-export const getSesion = async(dispatch)=>{
-    const getUserData = async()=>{
-      try{
-        dispatch(getUserStart())
-        const key = Object.keys(localStorage)
-        const userData = JSON.parse(window.localStorage.getItem(key))
-        dispatch(getUserSuccess(userData.user))
-      }catch(e){
-        console.log("EERRO_GET_USER_DATA", e);
-        dispatch(getUserFailure(e))
-      }
+export const getSesion = (dispatch)=>{
+  const getUserData = async()=>{
+    try{
+      dispatch(getUserStart())
+      const key = Object.keys(localStorage)
+      const userData = JSON.parse(window.localStorage.getItem(key))
+      dispatch(getUserSuccess(userData.user))
+    }catch(e){
+      console.log("ERROR_GET_USER_DATA", e);
+      dispatch(getUserFailure(e))
     }
-    
-    getUserData()
+  }
+  
+  getUserData()
 }
