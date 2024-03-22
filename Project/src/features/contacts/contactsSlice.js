@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState ={
   contacts: [],
   contactsFavorites:[],
-  loadign: false,
+  loading: false,
   error: null
 }
 
@@ -12,19 +12,19 @@ const contactsSlice = createSlice({
   initialState,
   reducers: {
     fetchContactsStart(state){
-      state.loadign = true;
+      state.loading = true;
       state.error = null;  
     }, 
     fetchContactsSuccess(state, action){
-      state.loadign = false;
+      state.loading = false;
       state.contacts = action.payload
     },
     fetchContactsFavorites(state, action){
-      state.loadign = false;
+      state.loading = false;
       state.contactsFavorites = action.payload
     },
     fetchContactsFailure(state, action){
-      state.loadign = false;
+      state.loading = false;
       state.error = action.payload
     },
   },

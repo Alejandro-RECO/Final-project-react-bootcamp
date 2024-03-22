@@ -4,12 +4,14 @@ import { primary } from '../../UI/colors'
 
 const LayoutContent = ({children, title}) => {
   return (
-    <LayoutContentStyled>
-      <h2 className='title'>{title} <span></span></h2>
-      <div className='cards-content'>
-        {children}
-      </div>
-    </LayoutContentStyled>
+    <CenterDiv>
+      <LayoutContentStyled>
+        <h2 className='title'>{title} <span></span></h2>
+        <div className='cards-content'>
+          {children}
+        </div>
+      </LayoutContentStyled>
+    </CenterDiv>
   )
 }
 
@@ -17,6 +19,7 @@ export default LayoutContent
 
 const LayoutContentStyled = styled.section`
   padding: 3rem;
+  width: 1500px;
    .title{
     font-size:2.6rem;
     font-weight: 400;
@@ -39,5 +42,11 @@ const LayoutContentStyled = styled.section`
     flex-wrap: wrap;
     gap: 40px;
    }
+`
+const CenterDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 
 `

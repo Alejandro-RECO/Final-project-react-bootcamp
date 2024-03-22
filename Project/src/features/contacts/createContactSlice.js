@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState ={
   contact: [],
-  loding: false,
+  loading: false,
   error: null
 }
 
 const createContactSlice = createSlice({
   name: 'createContact',
   initialState,
-  reducer: {
+  reducers: {
     createContactStart(state){
       state.loading = true
       state.error = null

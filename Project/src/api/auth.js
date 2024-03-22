@@ -10,7 +10,6 @@ import {
   getUserSuccess,
   getUserFailure
 } from '../features/auth/userSlice.js'
-import { useEffect } from "react"
 
 export const userLogin = async (email, dispatch) => {
 

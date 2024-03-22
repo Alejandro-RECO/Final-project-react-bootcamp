@@ -3,12 +3,12 @@ import styled from 'styled-components'
 
 import { primary, secondary900 } from '../../UI/colors'
 
-const ContactCard = ({contact, children}) => {
+const ContactCard = ({$contact, children}) => {
   return (
     <Card>
-      <Img favorite={contact.favorite}  src={`${contact.url_image}`} alt={contact.name} />
-      <h2>{contact.name} {contact.last_name}</h2>
-      <p>{contact.email}</p>
+      <Img $favorite={$contact.favorite}  src={`${$contact.url_image}`} alt={$contact.name} />
+      <h2>{$contact.name} {$contact.last_name}</h2>
+      <p>{$contact.email}</p>
       {children}
     </Card>
   )
@@ -17,8 +17,8 @@ const ContactCard = ({contact, children}) => {
 export default ContactCard
 
 
-const handleFavorite = (favorite) =>{
-  if(favorite){
+const handleFavorite = ($favorite) =>{
+  if($favorite){
     return `5px solid ${primary}`
   }else{
     return 'none'
@@ -56,7 +56,7 @@ const Card = styled.div`
 const Img = styled.img`
   height: 140px;
   width: 140px;
-  border: ${(props) => handleFavorite(props.favorite)};
+  border: ${(props) => handleFavorite(props.$favorite)};
   border-radius: 50%;
   object-fit: cover;
   display: flex;

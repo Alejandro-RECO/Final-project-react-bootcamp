@@ -6,8 +6,15 @@ import Button from '../buton'
 import styled from 'styled-components'
 import { RiAddLine } from "react-icons/ri";
 import { primary } from '../../UI/colors'
+import { createContact } from '../../api/contacts';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ContactForm = () => {
+
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.user)
+  const { loading } = useSelector((state) => state.createContact)
+
   const[contactData, setContactData] = useState({
     email: '',
     name: '',
@@ -16,7 +23,7 @@ const ContactForm = () => {
     url_image: ''
   })  
 
-  const {createContact, loading, openModal, handleModal } = useContact()
+  const { openModal, handleModal } = useContact()
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -30,7 +37,7 @@ const ContactForm = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault()
-    createContact(contactData)
+    createContact(contactData, dispatch, user.id)
     handleModal()
   }
   
@@ -39,11 +46,11 @@ const ContactForm = () => {
     <>
     <Button 
       onClick={handleModal}
-      nobackground={false}
-      background={primary}
-      noborder={true}
-      bgtext='#000'
-      bghover='#d8ec58'
+      $nobackground={false}
+      $background={primary}
+      $noborder={true}
+      $bgtext='#000'
+      $bghover='#d8ec58'
     >
       <RiAddLine/> New
     </Button>

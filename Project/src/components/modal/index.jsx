@@ -18,7 +18,6 @@ const Modal = ({children, open, isOpen, title}) => {
               <h3>{title}</h3>
               <Button
                 onClick={isOpen}
-                
               >
                 <RiCloseLine/>
               </Button>

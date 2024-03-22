@@ -45,7 +45,7 @@ const LayoutPage = () => {
         </Link>
         <Ul>
           <li>
-            <NavLinkS exact to="/" activeClassName="active-link">
+            <NavLinkS to="/" activeclassname="active-link">
               Overview
             </NavLinkS>
           </li>
@@ -58,10 +58,10 @@ const LayoutPage = () => {
           <ContactForm />
           <Button 
             onClick={handleModal}
-            noBackground={true}
-            noBorder={true}
-            noHover={true}
-            noShadow={false}
+            $noBackground={true}
+            $noBorder={true}
+            $noHover={true}
+            $noShadow={false}
           >
             Log out<RiLogoutCircleRLine />
           </Button>

@@ -5,9 +5,6 @@ import {
   useNavigate} 
 from 'react-router-dom'
 
-
-import './App.scss'
-
 import LayoutPage from './layout'
 import OverviewPage from './pages/overview'
 import ContactsPage from './pages/contacts'
