@@ -12,11 +12,13 @@
     $nohover = false,
     $bghover = '#eeeeee',
 
+    diseable, 
     onClick,
     ...reset
   }) => {
     return (
       <ButtonStyled
+        disabled={diseable}
         onClick={onClick}
         $nobackground={$nobackground}
         $background={$background}

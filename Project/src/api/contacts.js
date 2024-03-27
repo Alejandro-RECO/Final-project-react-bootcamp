@@ -70,7 +70,7 @@ export const updateContacts = async (id, updateField, user, dispatch) => {
     }
     dispatch(updateContact(data))
     dispatch(fetchContactsFailure(error))
-    console.log(data);
+    // console.log(data);
   }catch(err) {
     dispatch(fetchContactsFailure(err))
   } 

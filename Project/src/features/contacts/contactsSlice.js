@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { separateFavorites } from '../../util/util';
+import { separateFavorites, updateContacts } from '../../util/util';
 
 const initialState ={
   contact:{},
@@ -43,37 +43,15 @@ const contactsSlice = createSlice({
       }
       state.loading = false
     },
-    updateContact(state, action){
-      const { favorites, nonFavorites } = separateFavorites(action.payload);
-
-      if (favorites.length) {
-        favorites.forEach((favorite) => {
-          const index = state.contactsFavorites.findIndex((contact) => contact.id === favorite.id);
-          if (index !== -1) {
-            // El objeto ya existe en state.contactsFavorites, así que lo eliminamos
-            state.contactsFavorites.splice(index, 1);
-          } else {
-            // El objeto no existe en state.contactsFavorites, así que lo agregamos
-            state.contactsFavorites.push(favorite);
-          }
-        });
-      }
-
-      if (nonFavorites.length) {
-        nonFavorites.forEach((nonFavorite) => {
-          const index = state.contacts.findIndex((contact) => contact.id === nonFavorite.id);
-          if (index !== -1) {
-            // El objeto ya existe en state.contacts, así que lo eliminamos
-            state.contacts.splice(index, 1);
-          } else {
-            // El objeto no existe en state.contacts, así que lo agregamos
-            state.contacts.push(nonFavorite);
-      }
-    });
-  }
-
-  state.loading = false;
-    },
+    updateContact(state, action) {
+      const updatedState = {
+        ...state,
+        loading: true,
+      };
+      const finalState = updateContacts(updatedState, action.payload);
+      finalState.loading = false;
+      return finalState;
+    }
   },
 });
 

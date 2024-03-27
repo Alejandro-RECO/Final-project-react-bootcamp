@@ -52,6 +52,7 @@ const OverviewPage = () => {
                         dispatch
                       )
                     }
+                    diseable={loading}
                     $nobackground
                     $noborder={false}
                     $bgborder="red"
