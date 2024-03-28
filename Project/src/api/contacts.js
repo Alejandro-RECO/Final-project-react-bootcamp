@@ -26,8 +26,8 @@ export const fetchContacts = async (dispatch, user) => {
     dispatch(fetchContactsSuccess(nonFavorites));
     dispatch(fetchContactsFavorites(favorites));
 
-    console.log("NO FAVORITES: API", nonFavorites);
-    console.log("FAVORITES: API", favorites);
+    // console.log("NO FAVORITES: API", nonFavorites);
+    // console.log("FAVORITES: API", favorites);
   } catch (e) {
     throw new Error("Failed to fetch contacts", e);
   }
@@ -47,7 +47,7 @@ export const createContact = async (contactData, dispatch, userId) => {
         url_image: contactData.url_image,
       })
       .select();
-    console.log(data);
+    // console.log(data);
     dispatch(getCreateContact(data));
     dispatch(fetchContactsFailure(error));
   } catch (e) {
