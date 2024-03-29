@@ -22,11 +22,15 @@ export const updateContacts = (state, payload) => {
 
   const { favorites, nonFavorites } = separateFavorites(payload);
 
-  const updatedContactsFavorites = state.contactsFavorites.filter((contact) => contact.id !== id);
+  const updatedContactsFavorites = state.contactsFavorites.filter(
+    (contact) => contact.id !== id
+  );
   const updatedContacts = state.contacts.filter((contact) => contact.id !== id);
 
   favorites.forEach((favorite) => {
-    if (!state.contactsFavorites.some((contact) => contact.id === favorite.id)) {
+    if (
+      !state.contactsFavorites.some((contact) => contact.id === favorite.id)
+    ) {
       updatedContactsFavorites.push(favorite);
     }
   });
@@ -41,4 +45,10 @@ export const updateContacts = (state, payload) => {
     contactsFavorites: updatedContactsFavorites,
     contacts: updatedContacts,
   };
-}
+};
+
+export const getCurrentItems = (items, currentPage, itemsPerPage) => {
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  return items.slice(indexOfFirstItem, indexOfLastItem);
+};

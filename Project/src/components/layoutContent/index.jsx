@@ -38,7 +38,7 @@ const LayoutContentStyled = styled.section`
    .cards-content{
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 40px;
    }
