@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import "./index.scss";
 import React, { useEffect, useState } from "react";
 import LayoutContent from "../../components/layoutContent";
 import SketeletonPage from "../skeleton";

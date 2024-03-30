@@ -12,7 +12,10 @@ const ContactCard = ({$contact, children}) => {
       <Img $favorite={$contact.favorite}  src={`${$contact.url_image}`} alt={$contact.name} onError={addDefaultSrc}/>
       <h2>{$contact.name} {$contact.last_name}</h2>
       <p>{$contact.email}</p>
-      {children}
+      <div>
+        {children}
+
+      </div>
     </Card>
   )
 }
@@ -54,6 +57,12 @@ const Card = styled.div`
     width: 90%;
     border-bottom: 2px solid #d1d1d1;
     text-align: center;
+  }
+  div{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 70px;
   }
 `
 const Img = styled.img`

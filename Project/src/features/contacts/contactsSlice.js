@@ -51,7 +51,7 @@ const contactsSlice = createSlice({
       const finalState = updateContacts(updatedState, action.payload);
       finalState.loading = false;
       return finalState;
-    }
+    },
   },
 });
 

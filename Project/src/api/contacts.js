@@ -4,7 +4,7 @@ import {
   fetchContactsStart,
   fetchContactsSuccess,
   getCreateContact,
-  updateContact
+  updateContact,
 } from "../features/contacts/contactsSlice.js";
 import { supabase } from "../services/client.js";
 import { separateFavorites } from "../util/util.js";
@@ -57,21 +57,36 @@ export const createContact = async (contactData, dispatch, userId) => {
 };
 
 export const updateContacts = async (id, updateField, user, dispatch) => {
-  try{
-    const {data, error} = await supabase
-      .from('contacts')
+  try {
+    const { data, error } = await supabase
+      .from("contacts")
       .update(updateField)
       .eq("userId", user)
       .eq("id", id)
-      .select()
-  
-    if(error) {
+      .select();
+
+    if (error) {
       throw new Error(error);
     }
-    dispatch(updateContact(data))
-    dispatch(fetchContactsFailure(error))
+    dispatch(updateContact(data));
+    dispatch(fetchContactsFailure(error));
     // console.log(data);
-  }catch(err) {
-    dispatch(fetchContactsFailure(err))
-  } 
+  } catch (err) {
+    dispatch(fetchContactsFailure(err));
+  }
 };
+
+export const deletContact = async (id, user) => {
+  try{
+    const {error} = await supabase
+    .from("contacts")
+    .delete()
+    .eq('userId', user)
+    .eq('id', id)
+
+    alert("Contact deleted successfully")
+  }catch(err){
+    console.error("ERROR", err);
+  }
+}
+
