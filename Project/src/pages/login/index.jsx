@@ -1,59 +1,46 @@
 import { useState } from "react";
-import { getSingIn, getSingUp, userLogin } from "../../api/auth";
+import { getSingIn, getSingUp } from "../../api/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 const LoginPage = () => {
-  const { user } = useSelector((state) => state.user)
-  const {error} = useSelector((state) => state.auth)
-  const [email, setEmail] = useState("");
-  const [data, setData] = useState({
+  const {error, loading} = useSelector((state) => state.auth)
+  const initialState = {
     email: "",
     password: "",
-  });
+  }
+  const [data, setData] = useState(initialState);
   
-  console.log(user);
+  console.log(data);
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   // console.log('erro', error);
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await userLogin(email, dispatch);
-    } catch (err) {
-      console.error("ERROR LOGIN: ", err);
-    }
-  };
   const handleSingUpSubmit = async (e) => {
     e.preventDefault();
     getSingUp(data, dispatch);
+    setData(initialState)
   };
+
   const handleSingInSubmit = async (e) => {
     e.preventDefault();
     getSingIn(data, dispatch);
+    setData(initialState)
   };
+
   const messageError = ()=>{
     if(error){
       return <h2>{error.message}</h2>
+    }else{
+      return <h2>check your email</h2>
     }
   }
 
   return (
     <>
-      <h2>Inicio 1</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="youremail@email.com..."
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit">Enviar</button>
-      </form>
-      <h2>Inicio 2</h2>
-
+      <h2>Inicio 2 registro</h2>
       <form onSubmit={handleSingUpSubmit}>
         <input
           type="email"
@@ -71,7 +58,7 @@ const LoginPage = () => {
         />
         <button type="submit">Enviar</button>
       </form>
-      <h2>Inicio 3</h2>
+      <h2>Inicio 3 inicio</h2>
       <form onSubmit={handleSingInSubmit}>
         <input
           type="email"
@@ -88,8 +75,9 @@ const LoginPage = () => {
           required
         />
         <button type="submit">Enviar</button>
-      </form>
-      {messageError()}
+      </form>{
+        loading ? <p>Cargando...</p> : messageError()
+      }
     </>
   );
 };

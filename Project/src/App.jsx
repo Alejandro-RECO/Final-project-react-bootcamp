@@ -14,6 +14,7 @@ import LoginPage from './pages/login'
 // import { getSesion } from './api/auth'
 import { useEffect } from 'react'
 import { supabase } from './services/client'
+import { getUser } from './api/auth'
 
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
   const dispactch = useDispatch()
 
   useEffect(()=>{
-    // getSesion(dispactch)  
+    getUser(dispactch) 
     supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
         navigate('/login')

@@ -20,7 +20,7 @@ const FavoritesPage = () => {
     (state) => state.contacts
   );
 
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
   let userId = user.id;
 
   useEffect(() => {

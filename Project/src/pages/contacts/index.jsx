@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { shuffleArray } from "../../util/util";
+// import { shuffleArray } from "../../util/util";
 import {
   fetchContacts,
   updateContacts,
@@ -26,7 +26,7 @@ const ContactsPage = () => {
   );
 
   // const suffleContacts = shuffleArray(allContacts);
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   let userId = user.id;
 

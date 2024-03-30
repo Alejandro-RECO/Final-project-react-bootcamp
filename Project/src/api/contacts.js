@@ -1,3 +1,5 @@
+import { supabase } from "../services/client.js";
+import { separateFavorites } from "../util/util.js";
 import {
   fetchContactsFailure,
   fetchContactsFavorites,
@@ -6,10 +8,11 @@ import {
   getCreateContact,
   updateContact,
 } from "../features/contacts/contactsSlice.js";
-import { supabase } from "../services/client.js";
-import { separateFavorites } from "../util/util.js";
 
 export const fetchContacts = async (dispatch, user) => {
+  if(!user){
+    throw new Error("User ID is required")
+  }
   try {
     dispatch(fetchContactsStart());
     const { error, data } = await supabase
@@ -33,13 +36,17 @@ export const fetchContacts = async (dispatch, user) => {
   }
 };
 
-export const createContact = async (contactData, dispatch, userId) => {
+export const createContact = async (contactData, dispatch, user) => {
+  if(!user){
+    throw new Error("User ID is required")
+  }
+
   try {
     dispatch(fetchContactsStart());
     const { data, error } = await supabase
       .from("contacts")
       .insert({
-        userId: userId,
+        userId: user,
         email: contactData.email,
         name: contactData.name,
         last_name: contactData.last_name,
@@ -57,6 +64,9 @@ export const createContact = async (contactData, dispatch, userId) => {
 };
 
 export const updateContacts = async (id, updateField, user, dispatch) => {
+  if(!user){
+    throw new Error("User ID is required")
+  }
   try {
     const { data, error } = await supabase
       .from("contacts")
@@ -77,6 +87,9 @@ export const updateContacts = async (id, updateField, user, dispatch) => {
 };
 
 export const deletContact = async (id, user) => {
+  if(!user){
+    throw new Error("User ID is required")
+  }
   try{
     const {error, data} = await supabase
     .from("contacts")

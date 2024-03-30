@@ -27,14 +27,8 @@ const LayoutPage = () => {
     setOpenModal(!openModal);
   };
 
-  const handleLogout = async () => {
-    try {
-      dispatch(loginStart());
-      await logout();
-      dispatch(logoutAction());
-    } catch (err) {
-      dispatch(loginFailure(err));
-    }
+  const handleLogout = () => {
+    logout(dispatch);
   };
 
   return (

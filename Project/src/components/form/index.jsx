@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ContactForm = ({ title }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.contacts);
 
   const initialState = {
