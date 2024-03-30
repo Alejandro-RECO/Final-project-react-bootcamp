@@ -66,8 +66,15 @@ const LayoutPage = () => {
             Log out<RiLogoutCircleRLine />
           </Button>
           <Modal open={openModal} isOpen={handleModal} title={"LOGOUT"}>
-            <h3>Esta usted seguro de Cerrar secion</h3>
-            <Button onClick={handleLogout}>Confirm</Button>
+            <Logout>
+              <h3>¿Esta usted seguro de Cerrar secion?</h3>
+            </Logout>
+            <Button 
+              $noborder={false}
+              $bgborder="#ff7474"
+              $bgtext="#ff7474"
+              $bghover="#ff747448"
+              onClick={handleLogout}>Confirmar</Button>
           </Modal>
         </Ul>
       </nav>
@@ -112,14 +119,10 @@ const NavLinkS = styled(NavLink)`
   }
 `;
 
-const ButtonLayout = styled.button`
-  font-size: 1.6rem;
-  display: flex;
-  align-items: center;
-  transition: 0.2s all;
-
-  &:hover {
-    color: gray;
-    cursor: pointer;
-  }
-`;
+const Logout = styled.div`
+  text-align: center;
+  padding: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ffffff;
+`

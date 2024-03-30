@@ -16,10 +16,10 @@ const authSlice = createSlice({
     },
     loginSuccess(state, action) {
       state.loading = false;
-      state.userEmail = action.payload;
+      state.user = action.payload;
     },
     loginFailure(state, action) {
-      console.log("Faile");
+      // console.log("Faile");
       state.loading = false;
       state.error = action.payload;
     },

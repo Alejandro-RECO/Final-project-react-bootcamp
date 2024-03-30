@@ -38,7 +38,7 @@ const ContactsPage = () => {
 
   useEffect(() => {
     // console.log(contacts, contactsFavorites);
-  }, [contacts]);
+  }, [contacts, contactsFavorites]); 
 
   const allContacts = [...contacts, ...contactsFavorites];
   const totaPages = Math.ceil(allContacts.length / itemsPerPage);
@@ -46,6 +46,10 @@ const ContactsPage = () => {
   const handlePageChange = (page) => {
     setCurrentPerPage(page);
   };
+
+  const handleDeletContact = (id)=>{
+    deletContact(id, userId, dispatch)
+  }
 
   const renderAllContacts = (currentItems) =>{
     return(
@@ -69,7 +73,7 @@ const ContactsPage = () => {
               {item.favorite ? <RiCloseLine /> : <RiHeart3Fill />}
             </Button>
             <Button
-              onClick={() => deletContact(item.id, userId)}
+              onClick={() => handleDeletContact(item.id)}
               $nobackground
               $noborder={false}
               $bgtext={"#ba3a3a"}

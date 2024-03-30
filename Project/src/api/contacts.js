@@ -39,7 +39,7 @@ export const createContact = async (contactData, dispatch, userId) => {
     const { data, error } = await supabase
       .from("contacts")
       .insert({
-        userId,
+        userId: userId,
         email: contactData.email,
         name: contactData.name,
         last_name: contactData.last_name,
@@ -78,12 +78,14 @@ export const updateContacts = async (id, updateField, user, dispatch) => {
 
 export const deletContact = async (id, user) => {
   try{
-    const {error} = await supabase
+    const {error, data} = await supabase
     .from("contacts")
     .delete()
     .eq('userId', user)
     .eq('id', id)
+    .select()
 
+    console.log(data);
     alert("Contact deleted successfully")
   }catch(err){
     console.error("ERROR", err);

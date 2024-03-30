@@ -20,6 +20,7 @@ const OverviewPage = () => {
   const { user } = useSelector((state) => state.user);
 
   let userId = user.id;
+  console.log(user);
 
   useEffect(() => {
     if (userId) {

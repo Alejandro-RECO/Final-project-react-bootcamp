@@ -13,6 +13,7 @@ const ContactForm = ({ title }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { loading } = useSelector((state) => state.contacts);
+
   const initialState = {
     email: "",
     name: "",

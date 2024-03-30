@@ -11,7 +11,7 @@ import ContactsPage from './pages/contacts'
 import FavoritesPage from './pages/favorites'
 import NoPage404 from './pages/noPage'
 import LoginPage from './pages/login'
-import { getSesion } from './api/auth'
+// import { getSesion } from './api/auth'
 import { useEffect } from 'react'
 import { supabase } from './services/client'
 
@@ -22,7 +22,7 @@ const App = () => {
   const dispactch = useDispatch()
 
   useEffect(()=>{
-    getSesion(dispactch)  
+    // getSesion(dispactch)  
     supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
         navigate('/login')
