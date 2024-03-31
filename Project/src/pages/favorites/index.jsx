@@ -8,6 +8,7 @@ import { RiCloseFill } from "react-icons/ri";
 import { fetchContacts, updateContacts } from "../../api/contacts";
 import Pagination from "../../components/pagination";
 import { getCurrentItems } from "../../util/util";
+import { tertiary, white } from "../../UI/colors";
 
 const FavoritesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,7 @@ const FavoritesPage = () => {
   );
 
   const { user } = useSelector((state) => state.auth);
-  let userId = user.id;
+  let userId = user?.id;
 
   useEffect(() => {
     if (userId) {
@@ -29,14 +30,9 @@ const FavoritesPage = () => {
     }
   }, [userId]);
 
-  useEffect(() => {
-    // console.log(contacts, contactsFavorites);
-  }, [contactsFavorites]);
-
-  //Pagination
+  useEffect(() => {}, [contactsFavorites]);
 
   const totalPages = Math.ceil(contactsFavorites.length / itemsPerPage);
-  // console.log(totalPages);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -64,10 +60,11 @@ const FavoritesPage = () => {
               diseable={loading}
               $nobackground
               $noborder={false}
-              $bgborder="red"
-              $bgtext="red"
+              $bgborder={tertiary}
+              $bgtext={tertiary}
               $noshadow
-              $nohover
+              $bghover={tertiary}
+              $colorhover={white}
             >
               <RiCloseFill /> REMOVE
             </Button>

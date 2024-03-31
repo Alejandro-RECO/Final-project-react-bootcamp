@@ -4,7 +4,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 
 import styled from "styled-components";
-import { primary } from "../UI/colors";
+import { primary, tertiary } from "../UI/colors";
 import ContactForm from "../components/form";
 import Button from "../components/buton";
 // import { useContact } from '../context/ContactContext'
@@ -61,14 +61,15 @@ const LayoutPage = () => {
           </Button>
           <Modal open={openModal} isOpen={handleModal} title={"LOGOUT"}>
             <Logout>
-              <h3>¿Esta usted seguro de Cerrar secion?</h3>
+              <RiLogoutCircleRLine className="icon" />
+              <h3>Are you sure to log out?</h3>
+              <Button 
+                $bghover={tertiary}
+                $colorhover="white"
+                $nobold={true}
+                onClick={handleLogout}>Confirm</Button>
+
             </Logout>
-            <Button 
-              $noborder={false}
-              $bgborder="#ff7474"
-              $bgtext="#ff7474"
-              $bghover="#ff747448"
-              onClick={handleLogout}>Confirmar</Button>
           </Modal>
         </Ul>
       </nav>
@@ -114,9 +115,19 @@ const NavLinkS = styled(NavLink)`
 `;
 
 const Logout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
   text-align: center;
   padding: 20px;
-  text-transform: uppercase;
-  font-weight: bold;
   color: #ffffff;
+  text-transform: uppercase;
+  h3{
+    font-size: 1.3rem;
+    font-weight: bold;
+ }
+ .icon{
+  font-size: 7rem;
+ }
 `

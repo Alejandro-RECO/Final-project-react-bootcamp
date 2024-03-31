@@ -62,7 +62,7 @@ const Card = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    gap: 70px;
+    gap: 60px;
   }
 `
 const Img = styled.img`

@@ -7,6 +7,7 @@ import {
   fetchContactsSuccess,
   getCreateContact,
   updateContact,
+  deletContactSlice  
 } from "../features/contacts/contactsSlice.js";
 
 export const fetchContacts = async (dispatch, user) => {
@@ -86,7 +87,7 @@ export const updateContacts = async (id, updateField, user, dispatch) => {
   }
 };
 
-export const deletContact = async (id, user) => {
+export const deletContact = async (id, user, dispatch) => {
   if(!user){
     throw new Error("User ID is required")
   }
@@ -98,7 +99,8 @@ export const deletContact = async (id, user) => {
     .eq('id', id)
     .select()
 
-    console.log(data);
+    // console.log(data);
+    dispatch(deletContactSlice(data))
     alert("Contact deleted successfully")
   }catch(err){
     console.error("ERROR", err);

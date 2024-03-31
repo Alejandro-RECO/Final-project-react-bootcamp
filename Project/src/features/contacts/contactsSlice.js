@@ -52,6 +52,14 @@ const contactsSlice = createSlice({
       finalState.loading = false;
       return finalState;
     },
+    deletContactSlice(state, action) {
+      const updatedState = {
+        ...state,
+        loading: true,
+      } 
+      const finalState = updateContacts(updatedState, action.payload);
+      return finalState;
+    }
   },
 });
 
@@ -61,7 +69,8 @@ export const {
   fetchContactsFailure,
   fetchContactsFavorites,
   getCreateContact,
-  updateContact
+  updateContact,
+  deletContactSlice 
   
 } = contactsSlice.actions;
 

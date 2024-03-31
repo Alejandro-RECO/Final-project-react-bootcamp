@@ -8,7 +8,7 @@ import ContactCard from "../../components/card";
 import ContactForm from "../../components/form";
 import Button from "../../components/buton/index";
 import SketeletonPage from "../skeleton";
-import { primary } from "../../UI/colors";
+import { primary, tertiary, white } from "../../UI/colors";
 import { RiHeart3Fill, RiCloseFill } from "react-icons/ri";
 // import { getUser } from "../../api/auth";
 
@@ -58,10 +58,13 @@ const OverviewPage = () => {
                     diseable={loading}
                     $nobackground
                     $noborder={false}
-                    $bgborder="red"
-                    $bgtext="red"
+                    $bgborder={tertiary}
+                    $bgtext={tertiary}
                     $noshadow
-                    $nohover
+                    $bghover={tertiary}
+                    $colorhover="white "
+
+
                   >
                     <RiCloseFill /> REMOVE
                   </Button>
@@ -92,7 +95,7 @@ const OverviewPage = () => {
           ) : (
             // Aca ira el skeleton de carga...
             <>
-              {contacts.map((item) => (
+              {contacts.slice(-8).map((item) => (
                 <ContactCard key={item.id} $contact={item}>
                   <Button
                     onClick={() =>
@@ -107,6 +110,11 @@ const OverviewPage = () => {
                     $noborder={false}
                     $bgtext={primary}
                     $bgborder={primary}
+                    $size="1.3rem"
+                    $nohover={false}
+                    $bghover={primary}
+                    $colorhover={white}
+
                   >
                     <RiHeart3Fill />
                   </Button>

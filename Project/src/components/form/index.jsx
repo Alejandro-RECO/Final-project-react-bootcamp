@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContact } from "../../context/ContactContext";
 
 import Modal from "../modal";
@@ -8,11 +8,13 @@ import { RiAddLine } from "react-icons/ri";
 import { primary } from "../../UI/colors";
 import { createContact } from "../../api/contacts";
 import { useDispatch, useSelector } from "react-redux";
+import FormInput from "../input";
 
 const ContactForm = ({ title }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.contacts);
+  
 
   const initialState = {
     email: "",
@@ -20,27 +22,65 @@ const ContactForm = ({ title }) => {
     last_name: "",
     favorite: false,
     url_image: "",
-  }
+  };
+  const [formErrors, setFormErrors] = useState({});
 
   const [contactData, setContactData] = useState(initialState);
 
   const { openModal, handleModal } = useContact();
 
-  const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    const inputValue = type === "checkbox" ? checked : value;
-
+  const handleInputChange = (name, value) => {
     setContactData((prevContactData) => ({
       ...prevContactData,
-      [name]: inputValue,
+      [name]: value,
     }));
+
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      [name]: "",
+    }));
+  };
+
+  const validateForm = () => {
+    const newFormErrors = {};
+
+    if (!contactData.email) {
+      newFormErrors.email = "Email is required";
+      newFormErrors.errorEmail = true
+    }
+
+    if (!contactData.name) {
+      newFormErrors.name = "Name is required";
+      newFormErrors.errorName = true
+    }
+    if (!contactData.last_name) {
+      newFormErrors.last_name = "Last name is required";
+      newFormErrors.errorLName = true
+    }
+    if (!contactData.url_image) {
+      newFormErrors.url_image = "Image url is required";
+      newFormErrors.errorUrl_image = true
+    }
+
+    // Resto de las validaciones
+
+    return newFormErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let newFormErrors = validateForm();
+
+    if (Object.keys(newFormErrors).length > 0) {
+      setFormErrors(newFormErrors);
+      return;
+    }
+
     createContact(contactData, dispatch, user.id);
     handleModal();
     setContactData(initialState);
+    setFormErrors({})
   };
 
   return (
@@ -57,38 +97,49 @@ const ContactForm = ({ title }) => {
       </Button>
       <Modal open={openModal} isOpen={handleModal} title={"ADD CONTACT"}>
         <Form onSubmit={handleSubmit}>
-          <Input
+          <FormInput
             id="email"
             name="email"
             type="email"
             placeholder="email@example.com..."
             value={contactData.email}
             onChange={handleInputChange}
-            required
+            // required
+            $error={formErrors.email}
+            $noerror={formErrors.errorEmail}
           />
-          <Input
+          <FormInput
             name="name"
             type="text"
             placeholder="Name"
             value={contactData.name}
             onChange={handleInputChange}
-            required
+            // required
+            $error={formErrors.name}
+            $noerror={formErrors.errorName}
+
           />
-          <Input
+          <FormInput
             name="last_name"
             type="text"
             placeholder="Last name"
             value={contactData.last_name}
             onChange={handleInputChange}
-            required
+            // required
+            $error={formErrors.last_name}
+            $noerror={formErrors.errorLName}
+
           />
-          <Input
+          <FormInput
             name="url_image"
             type="text"
             placeholder="Image URL"
             value={contactData.url_image}
             onChange={handleInputChange}
-            required
+            // required
+            $error={formErrors.url_image}
+            $noerror={formErrors.errorUrl_image}
+
           />
           <CheckboxContainer>
             Enable like favorite
@@ -97,7 +148,9 @@ const ContactForm = ({ title }) => {
               name="favorite"
               type="checkbox"
               checked={contactData.favorite}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                handleInputChange(e.target.name, e.target.checked)
+              }
             />
           </CheckboxContainer>
           <Button disabled={loading} type="submit">
@@ -117,17 +170,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /* align-items: ; */
-  /* justify-content: ; */
-  /* border: 1px solid red; */
-`;
-
-const Input = styled.input`
-  padding: 22px 10px;
-  background-color: #cfdf66;
-  border-bottom: 1px solid white;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
 `;
 
 const CheckboxContainer = styled.label`
