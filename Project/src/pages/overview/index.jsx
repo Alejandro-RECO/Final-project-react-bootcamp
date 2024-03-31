@@ -10,6 +10,7 @@ import Button from "../../components/buton/index";
 import SketeletonPage from "../skeleton";
 import { primary, tertiary, white } from "../../UI/colors";
 import { RiHeart3Fill, RiCloseFill } from "react-icons/ri";
+import { DoNotShow } from "./style";
 // import { getUser } from "../../api/auth";
 
 const OverviewPage = () => {
@@ -144,11 +145,3 @@ const OverviewPage = () => {
 
 export default OverviewPage;
 
-const DoNotShow = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 0;
-  height: 100vh;
-`; // Migrar los estilos a un nuevo archivo y exportarlos desde alli

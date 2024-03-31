@@ -3,18 +3,17 @@ import { useContact } from "../../context/ContactContext";
 
 import Modal from "../modal";
 import Button from "../buton";
-import styled from "styled-components";
 import { RiAddLine } from "react-icons/ri";
 import { primary } from "../../UI/colors";
 import { createContact } from "../../api/contacts";
 import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../input";
+import { Form, CheckboxContainer, StyledCheckbox } from "./style";
 
 const ContactForm = ({ title }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.contacts);
-  
 
   const initialState = {
     email: "",
@@ -46,20 +45,20 @@ const ContactForm = ({ title }) => {
 
     if (!contactData.email) {
       newFormErrors.email = "Email is required";
-      newFormErrors.errorEmail = true
+      newFormErrors.errorEmail = true;
     }
 
     if (!contactData.name) {
       newFormErrors.name = "Name is required";
-      newFormErrors.errorName = true
+      newFormErrors.errorName = true;
     }
     if (!contactData.last_name) {
       newFormErrors.last_name = "Last name is required";
-      newFormErrors.errorLName = true
+      newFormErrors.errorLName = true;
     }
     if (!contactData.url_image) {
       newFormErrors.url_image = "Image url is required";
-      newFormErrors.errorUrl_image = true
+      newFormErrors.errorUrl_image = true;
     }
 
     // Resto de las validaciones
@@ -80,7 +79,7 @@ const ContactForm = ({ title }) => {
     createContact(contactData, dispatch, user.id);
     handleModal();
     setContactData(initialState);
-    setFormErrors({})
+    setFormErrors({});
   };
 
   return (
@@ -117,7 +116,6 @@ const ContactForm = ({ title }) => {
             // required
             $error={formErrors.name}
             $noerror={formErrors.errorName}
-
           />
           <FormInput
             name="last_name"
@@ -128,7 +126,6 @@ const ContactForm = ({ title }) => {
             // required
             $error={formErrors.last_name}
             $noerror={formErrors.errorLName}
-
           />
           <FormInput
             name="url_image"
@@ -139,7 +136,6 @@ const ContactForm = ({ title }) => {
             // required
             $error={formErrors.url_image}
             $noerror={formErrors.errorUrl_image}
-
           />
           <CheckboxContainer>
             Enable like favorite
@@ -163,28 +159,3 @@ const ContactForm = ({ title }) => {
 };
 
 export default ContactForm;
-
-const Form = styled.form`
-  width: 100%;
-  padding: 20px 5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const CheckboxContainer = styled.label`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-`;
-
-const StyledCheckbox = styled.input`
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 2px solid ${(props) => (props.checked ? "green" : "gray")};
-  border-radius: 4px;
-  background-color: ${(props) => (props.checked ? "green" : "transparent")};
-  cursor: pointer;
-`;

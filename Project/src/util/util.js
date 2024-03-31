@@ -40,9 +40,12 @@ export const updateContacts = (state, payload) => {
       updatedContacts.push(nonFavorite);
     }
   });
-  
+
   // Eliminar el contacto de ambos arrays si no se encuentra en ninguno de los dos
-  if (!updatedContactsFavorites.some((contact) => contact.id === id) && !updatedContacts.some((contact) => contact.id === id)) {
+  if (
+    !updatedContactsFavorites.some((contact) => contact.id === id) &&
+    !updatedContacts.some((contact) => contact.id === id)
+  ) {
     return {
       contactsFavorites: updatedContactsFavorites,
       contacts: updatedContacts,
@@ -70,4 +73,4 @@ export const shuffleArray = (array) => {
   }
 
   return newArray;
-}
+};

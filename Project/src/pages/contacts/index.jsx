@@ -6,7 +6,6 @@ import {
   updateContacts,
   deletContact,
 } from "../../api/contacts";
-import styled from "styled-components";
 import LayoutContent from "../../components/layoutContent";
 import SketeletonPage from "../skeleton";
 import ContactCard from "../../components/card";
@@ -162,4 +161,4 @@ const ContactsPage = () => {
 };
 
 export default ContactsPage;
-// 
+//
