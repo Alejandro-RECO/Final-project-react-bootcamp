@@ -4,27 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchContacts,
   updateContacts,
-  deletContact,
 } from "../../api/contacts";
 import LayoutContent from "../../components/layoutContent";
 import SketeletonPage from "../skeleton";
 import ContactCard from "../../components/card";
-import { RiHeart3Fill, RiDeleteBin5Fill, RiCloseLine } from "react-icons/ri";
+import { RiHeart3Fill, RiCloseLine } from "react-icons/ri";
 import Button from "../../components/buton";
 import { primary, tertiary, white } from "../../UI/colors";
 import { getCurrentItems } from "../../util/util";
 import Pagination from "../../components/pagination";
-import { useContact } from "../../context/ContactContext";
-import Modal from "../../components/modal";
+import { ModalDeletContact } from "./modal";
 
 const ContactsPage = () => {
   const [currentPage, setCurrentPerPage] = useState(1);
-  const [openModal, setOpenModal] = useState(false);
-  // const {loading, error} = useSelector((state) => state.auth)
 
-  const handleModal = () => {
-    setOpenModal(!openModal);
-  };
 
   const itemsPerPage = 4;
 
@@ -55,10 +48,7 @@ const ContactsPage = () => {
     setCurrentPerPage(page);
   };
 
-  const handleDeletContact = (id) => {
-    deletContact(id, userId, dispatch);
-    handleModal();
-  };
+
 
   const renderAllContacts = (currentItems) => {
     return (
@@ -85,36 +75,12 @@ const ContactsPage = () => {
             >
               {item.favorite ? <RiCloseLine /> : <RiHeart3Fill />}
             </Button>
-            <Button
-              onClick={handleModal}
-              $nobackground
-              $noborder={false}
-              $bgtext={tertiary}
-              $bgborder={tertiary}
-              $nobold={true}
-              $bghover={tertiary}
-              $colorhover={white}
-              $size="1.3rem"
-            >
-              <RiDeleteBin5Fill />
-            </Button>
-            <Modal open={openModal} isOpen={handleModal}>
-              <h2>
-                DELETE: {item.name.toUpperCase()} {item.last_name.toUpperCase()}
-              </h2>
-              <Button
-                onClick={() => handleDeletContact(item.id)}
-                $noborder={false}
-                $bgtext={tertiary}
-                $bgborder={tertiary}
-                $nobold={true}
-                $bghover={tertiary}
-                $colorhover={white}
-                $size="1.3rem"
-              >
-                CONFIRM <RiDeleteBin5Fill />
-              </Button>
-            </Modal>
+            
+            <ModalDeletContact 
+              item={item}
+              userId={userId}
+              dispatch={dispatch}
+            />
           </ContactCard>
         ))}
       </>
@@ -161,4 +127,3 @@ const ContactsPage = () => {
 };
 
 export default ContactsPage;
-//

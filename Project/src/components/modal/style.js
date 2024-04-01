@@ -28,9 +28,10 @@ export const HeaderModal = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 1.2rem;
+  padding: 1.2rem;
   padding-bottom: 1rem;
   border-bottom: 3px solid white;
+  width: 100%;
 
   h3 {
     font-weight: bold;

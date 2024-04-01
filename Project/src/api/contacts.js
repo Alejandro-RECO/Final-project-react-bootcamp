@@ -101,7 +101,7 @@ export const deletContact = async (id, user, dispatch) => {
 
     // console.log(data);
     dispatch(deletContactSlice(data))
-    alert("Contact deleted successfully")
+    // alert("Contact deleted successfully")
   }catch(err){
     console.error("ERROR", err);
   }
