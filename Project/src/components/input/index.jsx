@@ -1,6 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-import { secondary900, tertiary, white } from "../../UI/colors";
 import { DivStyled, ErrorStyled, Input } from "./style";
 
 const FormInput = ({

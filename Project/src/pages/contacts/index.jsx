@@ -9,7 +9,7 @@ import LayoutContent from "../../components/layoutContent";
 import SketeletonPage from "../skeleton";
 import ContactCard from "../../components/card";
 import { RiHeart3Fill, RiCloseLine } from "react-icons/ri";
-import Button from "../../components/buton";
+import Button from "../../components/button";
 import { primary, tertiary, white } from "../../UI/colors";
 import { getCurrentItems } from "../../util/util";
 import Pagination from "../../components/pagination";

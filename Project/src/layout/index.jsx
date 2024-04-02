@@ -6,7 +6,7 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import styled from "styled-components";
 import { primary, tertiary } from "../UI/colors";
 import ContactForm from "../components/form";
-import Button from "../components/buton";
+import Button from "../components/button";
 // import { useContact } from '../context/ContactContext'
 import Modal from "../components/modal";
 import { useDispatch, useSelector } from "react-redux";

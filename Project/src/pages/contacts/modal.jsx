@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Button from "../../components/buton";
+import Button from "../../components/button";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from "../../components/modal";
 import { DivStyle } from "./style";
 import { deletContact } from "../../api/contacts";
+import { tertiary, white } from "../../UI/colors";
 
 export const ModalDeletContact= ({item, userId, dispatch}) => {
 

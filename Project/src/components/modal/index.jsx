@@ -1,4 +1,4 @@
-import Button from '../buton'
+import Button from '../button'
 import { RiCloseLine } from "react-icons/ri";
 import { ContainerModal, HeaderModal, Overlay } from './style';
 

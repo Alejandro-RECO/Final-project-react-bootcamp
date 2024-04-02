@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import LayoutContent from "../../components/layoutContent";
 import SketeletonPage from "../skeleton";
 import ContactCard from "../../components/card";
-import Button from "../../components/buton";
+import Button from "../../components/button";
 import { RiCloseFill } from "react-icons/ri";
 import { fetchContacts, updateContacts } from "../../api/contacts";
 import Pagination from "../../components/pagination";

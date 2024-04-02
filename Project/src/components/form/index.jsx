@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useContact } from "../../context/ContactContext";
 
 import Modal from "../modal";
-import Button from "../buton";
+import Button from "../button";
 import { RiAddLine } from "react-icons/ri";
 import { primary } from "../../UI/colors";
 import { createContact } from "../../api/contacts";

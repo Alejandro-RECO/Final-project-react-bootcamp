@@ -6,7 +6,7 @@ import styled from "styled-components"; //Esto se iria al momento de migrar los 
 import LayoutContent from "../../components/layoutContent";
 import ContactCard from "../../components/card";
 import ContactForm from "../../components/form";
-import Button from "../../components/buton/index";
+import Button from "../../components/button/index";
 import SketeletonPage from "../skeleton";
 import { primary, tertiary, white } from "../../UI/colors";
 import { RiHeart3Fill, RiCloseFill } from "react-icons/ri";
