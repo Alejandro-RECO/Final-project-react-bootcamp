@@ -52,7 +52,6 @@ export const createContact = async (contactData, dispatch, user) => {
         name: contactData.name,
         last_name: contactData.last_name,
         favorite: contactData.favorite,
-        url_image: contactData.url_image,
       })
       .select();
     // console.log(data);

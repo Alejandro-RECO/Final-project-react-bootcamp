@@ -10,7 +10,7 @@ const ContactCard = ({ $contact, children }) => {
     <Card>
       <Img
         $favorite={$contact.favorite}
-        src={`${$contact.url_image}`}
+        src={`https://unavatar.io/${$contact.name}`}
         alt={$contact.name}
         onError={addDefaultSrc}
       />

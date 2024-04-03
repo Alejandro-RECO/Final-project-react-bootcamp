@@ -20,7 +20,6 @@ const ContactForm = ({ title }) => {
     name: "",
     last_name: "",
     favorite: false,
-    url_image: "",
   };
   const [formErrors, setFormErrors] = useState({});
 
@@ -55,10 +54,6 @@ const ContactForm = ({ title }) => {
     if (!contactData.last_name) {
       newFormErrors.last_name = "Last name is required";
       newFormErrors.errorLName = true;
-    }
-    if (!contactData.url_image) {
-      newFormErrors.url_image = "Image url is required";
-      newFormErrors.errorUrl_image = true;
     }
 
     // Resto de las validaciones
@@ -126,16 +121,6 @@ const ContactForm = ({ title }) => {
             // required
             $error={formErrors.last_name}
             $noerror={formErrors.errorLName}
-          />
-          <FormInput
-            name="url_image"
-            type="text"
-            placeholder="Image URL"
-            value={contactData.url_image}
-            onChange={handleInputChange}
-            // required
-            $error={formErrors.url_image}
-            $noerror={formErrors.errorUrl_image}
           />
           <CheckboxContainer>
             Enable like favorite
