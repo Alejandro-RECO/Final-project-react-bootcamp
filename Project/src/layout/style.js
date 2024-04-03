@@ -15,7 +15,6 @@ export const Img = styled.img`
 `;
 
 export const Section = styled.section`
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
   nav {
     display: flex;

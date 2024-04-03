@@ -26,7 +26,7 @@ const App = () => {
   const dispactch = useDispatch()
 
   useEffect(()=>{
-    getUser(dispactch) 
+    // getUser(dispactch) 
     supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
         navigate('/login')
