@@ -2,7 +2,9 @@ import { useDispatch } from 'react-redux'
 import { 
   Routes, 
   Route, 
-  useNavigate} 
+  useNavigate,
+  useLocation
+} 
 from 'react-router-dom'
 
 import LayoutPage from './layout'
@@ -15,6 +17,7 @@ import LoginPage from './pages/login'
 import { useEffect } from 'react'
 import { supabase } from './services/client'
 import { getUser } from './api/auth'
+import { ChangeTitle } from './util/pathName'
 
 
 const App = () => {
@@ -33,8 +36,11 @@ const App = () => {
     })
 
   }, [])
+ 
 
   return (
+    <>
+    <ChangeTitle />
       <Routes>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/' element={<LayoutPage/>}>
@@ -44,6 +50,7 @@ const App = () => {
         </Route>
         <Route path='*' element={<NoPage404/>}/>
       </Routes>
+    </>
   )
 }
 
