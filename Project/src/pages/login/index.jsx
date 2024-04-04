@@ -1,82 +1,163 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getSingIn, getSingUp } from "../../api/auth";
 import { useDispatch, useSelector } from "react-redux";
 
-import { primary, white} from '../../UI/colors'
+import { primary, tertiary, white} from '../../UI/colors'
 import styled from "styled-components";
 import LogoSvg from "../../UI/logoSvg";
+import Toast from "../../components/toast";
+import Button from "../../components/button";
 
 
 const LoginPage = () => {
   const {error, loading} = useSelector((state) => state.auth)
+  const [toast, setToast] = useState({
+    text: '',
+    status: false,
+    bg:''
+  })
+
+  useEffect(()=>{
+    if(toast.status){
+      setTimeout(()=>{
+        setToast({
+          ...toast, 
+          status: false
+
+        })
+
+      }, 5000)
+    }
+  }, [toast])
   const initialState = {
     email: "",
     password: "",
   }
-  const [data, setData] = useState(initialState);
+  const [singIndata, setSingInData] = useState(initialState);
+  const [singUpdata, setSingUpData] = useState(initialState);
   
-  console.log(data);
+  // console.log(data);
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+  const handleChange = (e, setState, state) => {
+    setState({ ...state, [e.target.name]: e.target.value });
   };
   // console.log('erro', error);
   const dispatch = useDispatch();
 
+  //Registrarse
+
   const handleSingUpSubmit = async (e) => {
+
     e.preventDefault();
-    getSingUp(data, dispatch);
-    setData(initialState)
+
+    
+    if(singUpdata.email.length === 0 ) {
+      setToast({
+        text: 'Please write email',
+        status:true,
+        bg: tertiary
+      })
+      return
+    }
+    if(singUpdata.password.length === 0) {
+      setToast({
+        text: 'Please write password',
+        status:true,
+        bg: tertiary
+      })
+      return
+    }
+
+    if(error){
+      let errorM = error.message
+      setToast({
+        text: errorM,
+        status:true,
+        bg: tertiary
+      })
+      return
+    }
+    
+    getSingUp(singUpdata, dispatch);
+
+    setSingUpData(initialState)
+
+    setToast({
+      text: 'Good ! please check your email',
+      status:true,
+      bg: primary
+    })
   };
+  // const messageErro = error.message || null
 
   const handleSingInSubmit = async (e) => {
     e.preventDefault();
-    getSingIn(data, dispatch);
-    setData(initialState)
+
     
-    if(!loading){
-      return <h3>Check your email</h3>
+    if(singIndata.email.length === 0 ) {
+      setToast({
+        text: 'Please write email',
+        status:true,
+        bg: tertiary
+      })
+      console.log('please enter email address');
+      return
     }
-  };
-
-  const messageError = ()=>{
+    if(singIndata.password.length === 0) {
+      setToast({
+        text: 'Please write password',
+        status:true,
+        bg: tertiary
+      })
+      console.log('please enter email address');
+      return
+    }
+    
     if(error){
-      return <h2>{error.message}</h2>
+      let errorM = error.message
+      setToast({
+        text: errorM,
+        status:true,
+        bg: tertiary
+      })
+      return
     }
-
-  }
+    getSingIn(singIndata, dispatch);
+    setSingInData(initialState)
+  };
+  // console.log(singIndata.email);
 
   return (
     <SectionStyled>
-
-      
+      {
+        toast.status && <Toast text={toast.text} bg={toast.bg} />
+      }
       <div className="logo">
         <LogoSvg/>
       </div>
       <div className="formOne">
-        <h2>register</h2>
+        <h2>sign up</h2>
         <form  onSubmit={handleSingUpSubmit}>
           <input
             type="email"
             name="email"
             placeholder="Email"
-            onChange={handleChange}
-            required
+            value={setSingUpData.email}
+            onChange={(e) => handleChange(e,setSingUpData, singUpdata)}
           />
           <input
             type="password"
             name="password"
             placeholder="Password"
-            onChange={handleChange}
-            required
+            value={singUpdata.password}
+            onChange={(e) => handleChange(e,setSingUpData, singUpdata)}
+            // required
           />
-          <button type="submit">Enviar</button>
+          <Button type="submit">Enviar</Button>
         </form>
-        <p>
         {
-        !loading ? '' : 'Check your email'
+        loading ? <p>Cargando...</p> : ''
         }
-        </p>
       </div>
       <div className="formTwo">
         <h2>sign in</h2>
@@ -84,18 +165,21 @@ const LoginPage = () => {
           <input
             type="email"
             name="email"
+            value={singIndata.email}
             placeholder="youremail@email.com..."
-            onChange={handleChange}
-            required
+            onChange={(e) => handleChange(e,setSingInData, singIndata)}
+            // required
           />
           <input
             type="password"
             name="password"
+            value={singIndata.password}
             placeholder="Password"
-            onChange={handleChange}
-            required
+            onChange={(e) => handleChange(e,setSingInData, singIndata)}
+            // required
           />
-          <button type="submit">Enviar</button>
+          <Button type="submit">Enviar</Button>
+
         </form>
       </div>
       <img src="" alt="" />
@@ -138,7 +222,7 @@ const SectionStyled = styled.section`
     gap: 20px;
     justify-self: center;
     border-radius: .3rem;
-    width: 50%;
+    width: 40%;
     height: 320px;
     padding: 20px;
     box-shadow: 2px 12px 50px -15px rgba(0,0,0,0.75);
@@ -159,6 +243,8 @@ const SectionStyled = styled.section`
 
     form{
       background-color: #ffffffa2;
+      backdrop-filter: blur(5px);
+
     }
   }
   .formTwo{
@@ -191,7 +277,7 @@ const SectionStyled = styled.section`
     padding: 10px 20px;
     border-radius: .3rem;
     border: 1px solid black;
-    width: 60%;
+    width: 80%;
 
    }
 

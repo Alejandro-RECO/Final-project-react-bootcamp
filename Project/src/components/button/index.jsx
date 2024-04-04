@@ -15,6 +15,7 @@ const Button = ({
   $nobold = true,
   $size = "1rem",
   $colorhover = "#000000",
+  type,
 
   diseable,
   onClick,
@@ -22,6 +23,7 @@ const Button = ({
 }) => {
   return (
     <ButtonStyled
+      type={type}
       disabled={diseable}
       onClick={onClick}
       $nobackground={$nobackground}
