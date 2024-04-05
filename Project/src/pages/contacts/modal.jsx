@@ -55,7 +55,7 @@ export const ModalDeletContact= ({item, userId, dispatch}) => {
           </ul>
           <div>
             <img
-              src={`https://unavatar.io/${item.name}`}
+              src={`https://unavatar.io/@${item.name}`}
               alt={`Image the ${item.name} ${item.last_name}`}
               onError={addDefaultSrc}
             />
